@@ -1,58 +1,43 @@
-const countryName = 'КитаЙ';
-
-const CANCELED_BY_USER = 'Отменено пользователем!';
-const NO_DELIVERY = 'В выбранную страну доставка недоступна.';
-const CHINA = 'Китай';
-const AUSTRALIA = 'Австралия';
-const INDIA = 'Индия';
-const JAMAICA = 'Ямайка';
-let message;
-let price = 0;
-let country;
-if (countryName === null) {
-  message = CANCELED_BY_USER;
-} else {
-  country = countryName.slice(0, 1).toUpperCase() + countryName.slice(1).toLowerCase();
-  // Write code on this line
-  switch (country) {
+function isLoginValid (login, min = 4, max = 16) {
     // Write code under this line
-    case CHINA:
-      price = 100;
-      break;
-    case AUSTRALIA:
-      price = 170;
-      break;
-    case INDIA:
-      price = 80;
-      break;
-    case JAMAICA:
-      price = 120;
-      break;
-
-    default:
-      price = 0;
+  return login.length >= min && login.length <= max;
+  
   }
-}
-
-if (countryName === null) {
-  message = CANCELED_BY_USER;
-} else if (price > 0) {
-  // Write code on this line
-  message = `Доставка в ${country} будет стоить ${price} кредитов`;
-} else {
-  message = NO_DELIVERY;
-}
-
-console.log(message);
-
-//если countryName равно "КитаЙ"
-// то значение message будет равно
-// 'Доставка в Китай будет стоить 100 кредитов'
-
-//если countryName равно null
-// то значение message будет равно
-// 'Отменено пользователем!'
-
-//если countryName равно "Чили"
-// то значение message будет равно
-// 'В выбранную страну доставка недоступна.'
+  
+  function isLoginUnique  (allLogins, login) {
+    'use strict';
+    // Write code under this line
+  return  allLogins.includes(login) ? false : true; 
+  }
+  
+  function addLogin (allLogins, login) {
+    'use strict';
+    const SUCCESS = 'Логин успешно добавлен!';
+    const REFUSAL = 'Такой логин уже используется!';
+    const ERROR = 'Ошибка! Логин должен быть размером от 4 до 16 символов';
+    let message;
+    // Write code under this line    
+    if (isLoginValid(login) === false) {
+      message = ERROR;
+    } else if(isLoginUnique(allLogins, login) === false) {
+      message = REFUSAL;
+    } else {
+      allLogins.push(login);
+      message = SUCCESS;
+    }
+    return message;
+  }
+  
+  const logins = ['Mango', 'robotGoogles', 'Poly', 'Aj4x1sBozz', 'qwerty123'];
+  
+  console.log(addLogin(logins, 'Ajax')); 
+  // 'Логин успешно добавлен!'
+  
+  console.log(addLogin(logins, 'robotGoogles')); 
+  // 'Такой логин уже используется!'
+  
+  console.log(addLogin(logins, 'Zod'));
+  // 'Ошибка! Логин должен быть от 4 до 16 символов'
+  
+  console.log(addLogin(logins, 'jqueryisextremelyfast')); 
+  // 'Ошибка! Логин должен быть от 4 до 16 символов' 
